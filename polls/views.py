@@ -9,7 +9,7 @@ from .models import Question
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
     template = loader.get_template('polls/index.html')
-    context = {'latest_question_list': latest_question_list}
+    context = {'latest_question_list': latest_question_list, 'potato': 5}
     # old return statement
     # return HttpResponse(template.render(context, request))
     # new return statement using render() no need for defining template
@@ -34,16 +34,19 @@ def results(request, question_id):
 
 
 def vote(request, question_id):
-    question = get_object_or_404(Question, pk = question_id)
-    try:
-        selected_choice = question.choice_set.get(pk=request.POST['choice'])
-    except (KeyError, Choice.DoesNotExist):
-        # Redisplay voting form
-        return render(request, 'polls/details.html', {
-            'question': question,
-            'error_message': "You didn't select a choice",
-        })
+    if request.POST:
+        question = get_object_or_404(Question, pk = question_id)
+        try:
+            selected_choice = question.choice_set.get(pk=request.POST['choice'])
+        except (KeyError, Choice.DoesNotExist):
+            # Redisplay voting form
+            return render(request, 'polls/details.html', {
+                'question': question,
+                'error_message': "You didn't select a choice",
+            })
+        else:
+            selected_choice.votes += 1
+            selected_choice.save()
+            return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
     else:
-        selected_choice.votes += 1
-        selected_choice.save()
-        return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+        return HttpResponse("you potato'd", status=404)
