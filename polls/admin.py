@@ -5,7 +5,7 @@ from .models import Question, Choice
 
 # Register your models here.
 
-class ChoiceInLine(admin.StackedInline):
+class ChoiceInLine(admin.TabularInline):
     model = Choice
     extra = 3
 
@@ -16,6 +16,8 @@ class QuestionAdmin(admin.ModelAdmin):
         ('Date Information:', {'fields': ['pub_date']})
     ]
     inlines = [ChoiceInLine]
+    list_display = ('question_text', 'pub_date', 'was_published_recently')
+    list_filter = ['pub_date']
 
 
 admin.site.register(Question, QuestionAdmin)
