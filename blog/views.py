@@ -20,7 +20,11 @@ posts = [
 
 # home page view
 def home(request):
-    return render(request, 'blog/home.html')
+    context = {
+        'posts': posts,
+    }
+
+    return render(request, 'blog/home.html', context)
 
 
 # about page view
