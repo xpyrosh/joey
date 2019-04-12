@@ -7,11 +7,18 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 
-class UDict(models.Model):
-    # word can have multiple descriptions
-    word_text = models.CharField(max_length=100)
+class Word (models.Model):
+    word_text = models.CharField(max_length=100, unique=True)
+
+
+class Desc(models.Model):
+    # creates the one to many relation to word
+    word = models.ForeignKey(Word, on_delete=models.CASCADE)
+
+    # details of each individual desc
     desc_text = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
+    votes = models.IntegerField(default=0)
     posted_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
