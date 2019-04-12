@@ -8,18 +8,11 @@ from django.contrib.auth.models import User
 
 
 class UDict(models.Model):
-    word = models.CharField(100)
-    word.unique = True
-    definitions = [ Desc ]
-
-    def __str__(self):
-        return self.word
-
-
-class Desc(models.Model):
+    # word can have multiple descriptions
+    word_text = models.CharField(max_length=100)
     desc_text = models.TextField()
-    date_posted = models.DateTimeField('Date Posted')
+    date_posted = models.DateTimeField(default=timezone.now)
     posted_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.desc_text
+        return self.word_text
