@@ -6,7 +6,7 @@ N/A - WIP
 
 ### An introduction to making an application
 
-Create an app that mimics urban dictionary in basic functionality. When, run the project should be able to accept a word and it's associated definition.
+Create an app that mimics urban dictionary in basic functionality. When run, the project should be able to accept a word and it's associated definition.
 
 Also implement a very rudimentary search: a different form on the main page should allow you to input a search term and your app should search for words that have that term in either the word itself or it's 'definition'
 
