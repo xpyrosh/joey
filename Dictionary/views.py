@@ -5,7 +5,7 @@ from django.http import HttpResponse
 
 def index(request):
     context = {
-        'word': Word.objects.all(),
+        'words': Word.objects.all(),
         'desc': Desc.objects.all()
     }
     return render(request, 'Dictionary/home.html', context)

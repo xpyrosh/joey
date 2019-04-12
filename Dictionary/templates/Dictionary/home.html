@@ -1,1 +1,17 @@
-<h1>THIS IS A TEST OF DICTIONARY HOME</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dictionary</title>
+</head>
+<body>
+    <h1>Bootleg Urban Dictionary</h1>
+    {% for word in words %}
+        <h2> {{ word.word_text }}</h2>
+        {% for desc in desc %}
+            {% if desc.word == word %}
+                <p> {{ desc.desc_text }}</p>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+</body>
+</html>
