@@ -4,4 +4,8 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the dictionary index.")
+    context = {
+        'test': "Dictionary Beginning"
+    }
+    return render(request, 'Dictionary/home.html', context)
+    #return HttpResponse("Hello, world. You're at the dictionary index.")
