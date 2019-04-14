@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add a Word</title>
+</head>
+<body>
+    <h1>Bootleg Urban Dictionary</h1>
+    <form action="." method="post">{% csrf_token %}
+        <input type="text" name="new_word" placeholder="New Word">
+        <div><input type="text" name="word_desc" placeholder="Describe Word" width="150" height="100"></div>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

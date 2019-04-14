@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Word, Desc
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 
 
@@ -19,6 +20,25 @@ def index(request):
 
     return render(request, 'Dictionary/home.html', context)
 
+
+def addword(request):
+    if request.method == 'POST':
+        try:
+            new_word = request.POST.get('new_word', None)
+            word_desc = request.POST.get('word_desc', None)
+            print(new_word, word_desc)
+            word = Word()
+            word.word_text = new_word
+            word.save()
+            desc = Desc()
+            desc.desc_text = word_desc
+            desc.word = word
+            desc.posted_by = User.objects.get(id=1)
+
+            return render(request, 'Dictionary/home.html')
+        except Word.DoesNotExist:
+            return HttpResponse("Invalid Word Entry")
+    return render(request, 'Dictionary/addword.html')
 
     # def search(request):
     #     if request.method == 'POST':
