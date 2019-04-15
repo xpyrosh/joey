@@ -27,8 +27,10 @@ def addword(request):
             new_word = request.POST.get('new_word', None)
             word_desc = request.POST.get('word_desc', None)
             print(new_word, word_desc)
-
-            word = Word.objects.create(word_text=new_word)
+            try:
+                word = Word.objects.get(word_text=new_word)
+            except Word.DoesNotExist:
+                word = Word.objects.create(word_text=new_word)
             desc = Desc.objects.create(word=word, desc_text=word_desc, posted_by=User.objects.get(id=1))
 
             return render(request, 'Dictionary/home.html')
