@@ -27,27 +27,12 @@ def addword(request):
             new_word = request.POST.get('new_word', None)
             word_desc = request.POST.get('word_desc', None)
             print(new_word, word_desc)
-            word = Word()
-            word.word_text = new_word
-            word.save()
-            desc = Desc()
-            desc.desc_text = word_desc
-            desc.word = word
-            desc.posted_by = User.objects.get(id=1)
+
+            word = Word.objects.create(word_text=new_word)
+            desc = Desc.objects.create(word=word, desc_text=word_desc, posted_by=User.objects.get(id=1))
 
             return render(request, 'Dictionary/home.html')
         except Word.DoesNotExist:
             return HttpResponse("Invalid Word Entry")
     return render(request, 'Dictionary/addword.html')
 
-    # def search(request):
-    #     if request.method == 'POST':
-    #         search_id = request.POST.get('textfield', None)
-    #         try:
-    #             word = Word.objects.get(word_text = search_id)
-    #             html = ("<h1>%s<h1/>", word)
-    #             return HttpResponse(html)
-    #         except Word.DoesNotExist:
-    #             return HttpResponse("Word does not exist.")
-    #     else:
-    #         return render(request, 'Dictionary/search.html')
