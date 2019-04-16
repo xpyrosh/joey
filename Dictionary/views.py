@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Word, Desc
 from django.contrib.auth.models import User
 from django.http import HttpResponse
@@ -40,7 +40,7 @@ def addword(request):
                 word = Word.objects.create(word_text=new_word)
             desc = Desc.objects.create(word=word, desc_text=word_desc, posted_by=User.objects.get(id=1))
 
-            return render(request, 'Dictionary/home.html', context)
+            return redirect("UDictionary:index")
         except Word.DoesNotExist:
             return HttpResponse("Invalid Word Entry")
     return render(request, 'Dictionary/addword.html')
