@@ -19,7 +19,6 @@ def index(request):
         try:
             word = Word.objects.filter(word_text__icontains=search_id)
             context['words'] = word
-            print(word)
             if not word:
                 word = Desc.objects.filter(desc_text__icontains=search_id)
                 context['words'] = []
