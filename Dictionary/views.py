@@ -17,12 +17,15 @@ def index(request):
     if request.method == 'POST':
         search_id = request.POST.get('title', None)
         try:
-            try:
-                word = Word.objects.get(word_text__icontains=search_id)
-                context['words'] = [word]
-            except Word.DoesNotExist:
-                word = Desc.objects.get(desc_text__icontains=search_id)
-                context['words'] = [word.word]
+            word = Word.objects.filter(word_text__icontains=search_id)
+            context['words'] = word
+            print(word)
+            if not word:
+                word = Desc.objects.filter(desc_text__icontains=search_id)
+                context['words'] = []
+                for w in word:
+                    context['words'].append(w.word)
+
         except Word.DoesNotExist:
             return HttpResponse("Word does not exist.")
 
