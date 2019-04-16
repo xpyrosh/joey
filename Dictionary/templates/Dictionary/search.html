@@ -1,6 +1,14 @@
-<form method="POST" action="search">
-{% csrf_token %}
-<input type="text" name="textfield">
-
-<button type="submit">Find Word</button>
-</form>
+{% extends "Dictionary/base.html" %}
+{% block content %}
+    <h1>Search Results</h1>
+    <form action="{% url 'UDictionary:index' search_id %}">
+        {% for word in words %}
+            <h2> {{ word.word_text }}</h2>
+            {% for desc in desc %}
+                {% if desc.word == word %}
+                    <p> {{ desc.desc_text }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </form>
+{% endblock content %}
