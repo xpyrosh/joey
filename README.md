@@ -1,8 +1,6 @@
 ## Completion commit hash
 commit 05d172e8c8a60dca67cf2bbe5ccb11a91729f973
 
-N/A - WIP
-
 ## Objective: Learning Django
 
 ### An introduction to making an application
