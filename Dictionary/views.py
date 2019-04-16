@@ -12,9 +12,8 @@ def index(request):
     if request.method == 'POST':
         search_id = request.POST.get('title', None)
         try:
-            word = Word.objects.get(word_text=search_id)
+            word = Word.objects.get(word_text__icontains=search_id)
             context['words'] = [word]
-            print(context['words'])
         except Word.DoesNotExist:
             return HttpResponse("Word does not exist.")
 
@@ -26,7 +25,6 @@ def addword(request):
         try:
             new_word = request.POST.get('new_word', None)
             word_desc = request.POST.get('word_desc', None)
-            print(new_word, word_desc)
             try:
                 word = Word.objects.get(word_text=new_word)
             except Word.DoesNotExist:
