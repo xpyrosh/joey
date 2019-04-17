@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from .models import Word, Desc
 from django.contrib.auth.models import User
 from django.http import HttpResponse
@@ -33,21 +33,23 @@ def index(request):
 
 
 def search(request):
-    if request.method == 'POST':
-        search_id = request.POST.get('title', None)
-        context['search_id'] = search_id
-        try:
-            word = Word.objects.filter(word_text__icontains=search_id)
-            context['words'] = word
-            if not word:
-                word = Desc.objects.filter(desc_text__icontains=search_id)
-                context['words'] = []
-                for w in word:
-                    context['words'].append(w.word)
+    return redirect(reverse('UDictionary:results', kwargs={'search_id': request.POST.get('search_id')}))
 
-        except Word.DoesNotExist:
-            return HttpResponse("Word does not exist.")
-    return HttpResponse()
+
+def results(request, search_id):
+    context['search_id'] = search_id
+    try:
+        word = Word.objects.filter(word_text__icontains=search_id)
+        context['words'] = word
+        if not word:
+            word = Desc.objects.filter(desc_text__icontains=search_id)
+            context['words'] = []
+            for w in word:
+                context['words'].append(w.word)
+
+    except Word.DoesNotExist:
+        return HttpResponse("Word does not exist.")
+    return render(request, 'Dictionary/search.html', context)
 
 
 def addword(request):

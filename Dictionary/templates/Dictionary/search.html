@@ -1,14 +1,15 @@
 {% extends "Dictionary/base.html" %}
 {% block content %}
-    <h1>Search Results</h1>
-    <form action="{% url 'UDictionary:index' search_id %}">
-        {% for word in words %}
-            <h2> {{ word.word_text }}</h2>
-            {% for desc in desc %}
-                {% if desc.word == word %}
-                    <p> {{ desc.desc_text }}</p>
-                {% endif %}
-            {% endfor %}
+<h1>Search Results</h1>
+    <form action="{% url 'UDictionary:search'%}" method="post">
+        {% csrf_token %}
+        <input type="text" name="search_id" placeholder="Search Words">
+        <input type="submit" value="Find">
+    <form/>
+    {% for word in words %}
+        <h2> {{ word.word_text }}</h2>
+        {% for desc in word.desc_set.all %}
+            <p> {{ desc.desc_text }}</p>
         {% endfor %}
-    </form>
+    {% endfor %}
 {% endblock content %}
