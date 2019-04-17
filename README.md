@@ -20,3 +20,19 @@ Here's the workflow that should work as an acceptance criteria:
 5. navigate to the word list page, observe that the word "joey" has been added to the list of defined words
 6. input "kangaroo" in the search bar and hit submit for the search bar form
 7. Be taken to a page of results wherein "joey" is in the list of found words
+
+
+## Phase 2: New Features
+
+## Completion Commit Hash:
+
+## Objective: Expanding Django Knowledge
+
+## Acceptance Criteria
+
+1. Allow for new user registration
+2. Create user login system
+3. Words added while logged on will be credited to that user, all other words credited to admin
+4. Wherever words are displayed; show the posted by field
+5. Users should be able to access a page of all posts they created
+6. Users should be able to delete or update their posts
