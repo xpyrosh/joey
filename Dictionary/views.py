@@ -68,3 +68,7 @@ def addword(request):
             return HttpResponse("Invalid Word Entry")
     return render(request, 'Dictionary/addword.html')
 
+
+def login(request):
+    return render(request, 'Dictionary/login.html')
+
