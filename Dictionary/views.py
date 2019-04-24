@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse
 from .models import Word, Desc
 from django.contrib.auth.models import User
 from django.http import HttpResponse
+from django.contrib.auth.forms import UserCreationForm
 
 context = {
         'words': Word.objects.all(),
@@ -71,4 +72,12 @@ def addword(request):
 
 def login(request):
     return render(request, 'Dictionary/login.html')
+
+
+def register(request):
+    form = UserCreationForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'Dictionary/register.html', context)
 
