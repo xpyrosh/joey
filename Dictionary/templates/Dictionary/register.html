@@ -1,4 +1,13 @@
 {% extends "Dictionary/base.html" %}
 {% block content %}
-    {{ form }}
+<div class="container">
+    <h1>Register</h1>
+    <form method="post">
+        {% csrf_token %}
+        <fieldset class="form-group">
+        {{ form.as_p }}
+        <button class="btn btn-outline-info" type="submit">Sign Up</button>
+    </fieldset>
+    </form>
+</div>
 {% endblock content %}
