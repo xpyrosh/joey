@@ -1,9 +1,17 @@
 {% extends "Dictionary/base.html" %}
 {% block content %}
     <h1>Login</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class= "btn btn-outline-info" type="submit">Login</button>
-    </form>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                {{ form.as_p }}
+                <button class= "btn btn-outline-info" type="submit">Login</button>
+            </fieldset>
+            <small class="text-muted">
+                Don't have an account? <a class="ml-2" href="{% url 'UDictionary:register' %}">Register Here</a>
+            </small>
+        </form>
+    </div>
+
 {% endblock content %}

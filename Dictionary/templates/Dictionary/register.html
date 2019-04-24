@@ -4,10 +4,13 @@
     <h1>Register</h1>
     <form method="post">
         {% csrf_token %}
-        <fieldset class="form-group">
+    <fieldset class="form-group">
         {{ form.as_p }}
         <button class="btn btn-outline-info" type="submit">Sign Up</button>
     </fieldset>
+        <small class="text-muted">
+            Already have an account? <a class="ml-2" href="{% url 'UDictionary:login' %}">Login Here</a>
+        </small>
     </form>
 </div>
 {% endblock content %}
