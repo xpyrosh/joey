@@ -2,7 +2,7 @@
 {% block content %}
     <h1>Login</h1>
     <div>
-        <form method="post">
+        <form method="post" action="{% url 'UDictionary:index' %}">
             {% csrf_token %}
             <fieldset class="form-group">
                 {{ form.as_p }}

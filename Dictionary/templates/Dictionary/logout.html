@@ -1,0 +1,7 @@
+{% extends "Dictionary/base.html" %}
+{% block content %}
+    <h1>Logged Out</h1>
+    <small class="text-muted">
+        <a class="ml-1" href="{% url 'UDictionary:login' %}">Log In</a>
+    </small>
+{% endblock content %}
