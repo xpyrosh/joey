@@ -16,20 +16,6 @@ def index(request):
         'words': Word.objects.all(),
         'desc': Desc.objects.all()
     }
-    # if request.method == 'POST':
-    #     search_id = request.POST.get('title', None)
-    #     context['search_id'] = search_id
-    #     try:
-    #         word = Word.objects.filter(word_text__icontains=search_id)
-    #         context['words'] = word
-    #         if not word:
-    #             word = Desc.objects.filter(desc_text__icontains=search_id)
-    #             context['words'] = []
-    #             for w in word:
-    #                 context['words'].append(w.word)
-    #
-    #     except Word.DoesNotExist:
-    #         return HttpResponse("Word does not exist.")
 
     return render(request, 'Dictionary/home.html', context)
 

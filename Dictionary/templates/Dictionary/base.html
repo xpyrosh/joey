@@ -34,8 +34,13 @@
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
-              <a class="nav-item nav-link" href="{% url 'UDictionary:login' %}">Login</a>
-              <a class="nav-item nav-link" href="{% url 'UDictionary:register' %}">Register</a>
+                {% if user.is_authenticated %}
+                <a class="nav-item nav-link">Welcome, {{ user.username }}</a>
+                    <a class="=nav-item nav-link" href="{% url 'UDictionary:logout' %}">Logout</a>
+                {% else %}
+                    <a class="nav-item nav-link" href="{% url 'UDictionary:login' %}">Login</a>
+                    <a class="nav-item nav-link" href="{% url 'UDictionary:register' %}">Register</a>
+                {% endif %}
             </div>
           </div>
         </div>
