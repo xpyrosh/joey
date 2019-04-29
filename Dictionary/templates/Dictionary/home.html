@@ -8,14 +8,21 @@
     </form>
 
     {% for word in words %}
+
         <h2> {{ word.word_text }}</h2>
+        <div class="container"><ol>
         {% for desc in desc %}
+
             {% if desc.word == word %}
-                <p> {{ desc.desc_text }}<br>
-                <small>{{ desc.posted_by }}</small>
-                </p>
+
+                <li><p> {{ desc.desc_text }}<br>
+                <small class="text-muted">Posted by, {{ desc.posted_by }}</small>
+                </p></li>
+
             {% endif %}
+
         {% endfor %}
+    </ol></div><hr>
     {% endfor %}
 
 {% endblock content %}
