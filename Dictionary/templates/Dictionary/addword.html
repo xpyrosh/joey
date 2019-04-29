@@ -1,9 +1,16 @@
 {% extends "Dictionary/base.html" %}
 {% block content %}
+<div class="container">
     <h1>Bootleg Urban Dictionary</h1>
-    <form action="." method="post">{% csrf_token %}
-        <input type="text" name="new_word" placeholder="New Word">
-        <div><input type="text" name="word_desc" placeholder="Describe Word" width="150" height="100"></div>
-        <input type="submit" value="Submit">
+    <form action="." method="post">
+        {% csrf_token %}
+        <p>
+            <input type="text" name="new_word" placeholder="New Word">
+        </p>
+        <p>
+            <div><input type="text" name="word_desc" placeholder="Describe Word" width="150" height="100"></div>
+        </p>
+        <input class="btn btn-outline-info" type="submit" value="Submit">
     </form>
+</div>
 {% endblock content %}
