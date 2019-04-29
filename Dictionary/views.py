@@ -41,6 +41,10 @@ def results(request, search_id):
 
 
 def addword(request):
+    if request.user.is_authenticated:
+        current_user = request.user.id
+    else:
+        current_user = 1
     if request.method == 'POST':
         try:
             new_word = request.POST.get('new_word', None)
@@ -49,7 +53,7 @@ def addword(request):
                 word = Word.objects.get(word_text=new_word)
             except Word.DoesNotExist:
                 word = Word.objects.create(word_text=new_word)
-            desc = Desc.objects.create(word=word, desc_text=word_desc, posted_by=User.objects.get(id=1))
+            desc = Desc.objects.create(word=word, desc_text=word_desc, posted_by=User.objects.get(id=current_user))
 
             return redirect("UDictionary:index")
         except Word.DoesNotExist:

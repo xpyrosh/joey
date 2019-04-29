@@ -5,14 +5,17 @@
         {% csrf_token %}
         <input type="text" name="search_id" placeholder="Search Words">
         <input type="submit" value="Find">
-    <form/>
+    </form>
 
     {% for word in words %}
         <h2> {{ word.word_text }}</h2>
         {% for desc in desc %}
             {% if desc.word == word %}
-                <p> {{ desc.desc_text }}</p>
+                <p> {{ desc.desc_text }}<br>
+                <small>{{ desc.posted_by }}</small>
+                </p>
             {% endif %}
         {% endfor %}
     {% endfor %}
+
 {% endblock content %}
