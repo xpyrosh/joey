@@ -23,7 +23,7 @@ def index(request):
 
 class DictionaryListView(ListView):
     model = Word
-    context_object_name = 'word'
+    context_object_name = 'words'
 
 
 def search(request):
