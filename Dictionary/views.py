@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
+from django.views.generic import ListView
 
 context = {
         'words': Word.objects.all(),
@@ -18,6 +19,11 @@ def index(request):
     }
 
     return render(request, 'Dictionary/home.html', context)
+
+
+class DictionaryListView(ListView):
+    model = Word
+    context_object_name = 'word'
 
 
 def search(request):
@@ -41,10 +47,12 @@ def results(request, search_id):
 
 
 def addword(request):
+    # Defining the posted_by field if logged
     if request.user.is_authenticated:
         current_user = request.user.id
     else:
         current_user = 1
+
     if request.method == 'POST':
         try:
             new_word = request.POST.get('new_word', None)
