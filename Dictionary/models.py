@@ -26,3 +26,6 @@ class Desc(models.Model):
 
     def __str__(self):
         return self.desc_text
+
+    class Meta:
+        ordering = ['-votes']

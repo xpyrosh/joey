@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect, reverse
+from django.urls import reverse_lazy
 from .models import Word, Desc
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
+from django.forms import modelform_factory, inlineformset_factory
+from django.db import transaction
 
 context = {
         'words': Word.objects.all(),
@@ -24,6 +27,40 @@ def index(request):
 class DictionaryListView(ListView):
     model = Word
     context_object_name = 'words'
+
+
+class DictionaryCreateView(CreateView):
+    model = Word
+    fields = ['word_text']
+    success_url = reverse_lazy('UDictionary:index')
+
+    def get_context_data(self, **kwargs):
+        context_data = super(DictionaryCreateView, self).get_context_data(**kwargs)
+        desc_form = modelform_factory(model=Desc, fields=['desc_text'])
+
+        if self.request.method == 'POST':
+            form_data = self.request.POST
+            desc_form = desc_form(data=form_data)
+
+        context_data['desc_form'] = desc_form
+        return context_data
+
+    def form_valid(self, form):
+        context_data = self.get_context_data()
+        desc_form = context_data.get('desc_form')
+
+        if desc_form.is_valid():
+            with transaction.atomic():
+                word_instance = form.save() # save Word
+                desc_instance = desc_form.save(commit=False)
+                desc_instance.posted_by = self.request.user
+                desc_instance.word = word_instance
+                desc_instance.save()
+                return super(DictionaryCreateView, self).form_valid(form)
+
+        self.render_to_response(context_data)
+
+
 
 
 def search(request):
